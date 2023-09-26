@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 class Interval:
     def __init__(self, a, b, count):
@@ -20,6 +21,29 @@ class Interval:
             result.insert(0, new_segment)
             value -= step
         return result
+
+    # Функция распределния
+    @staticmethod
+    def F(x, a, b):
+        if x <= a:
+            return 0
+        elif b >= b:
+            return 1
+        else:
+            return (x - a) / (b - a)
+
+    # Функция плотности распределния
+    @staticmethod
+    def f(x, a, b):
+        if a < x < b:
+            return 1 / (b - a)
+        else:
+            return 0
+
+    # Обратная функция распределения
+    @staticmethod
+    def F_reverse(gamma, a, b):
+        return gamma * (b - a) + a
 
     def set_intervals(self, arr_arguments):
         self.clear_intervals()
@@ -49,10 +73,25 @@ class Interval:
         for element in self.intervals:
             x.append(element.argement)
             y.append(element.count / count_elements)
+
+        # x_f = np.arange(0., 10., 0.2)
+        # y_f = [self.f(elem, self.a, self.b) for elem in x_f]
+        # plt.figure(figsize=(12, 6))
+        # plt.subplot(131)
+        plt.title('Гистограмма относительных частот')
         plt.bar(x, y, 0.1)
-        plt.title('Гистограмма распределения')
-        plt.xlabel('x')
-        plt.ylabel('Частоты')
+        # plt.subplot(133)
+        # plt.plot(x_f, y_f, "go")
+        # plt.suptitle('Розыгрыш стандартных непрерывных случайных величин')
+        plt.show()
+
+    def print_f_graph(self):
+        plt.title('Плотность распределения')
+        x = np.arange(0., 10., 0.05)
+        y = [self.f(elem, self.a, self.b) for elem in x]
+        plt.plot(x, y, "bo")
+        # plt.xlabel('x')
+        # plt.ylabel('y')
         plt.show()
 
 
