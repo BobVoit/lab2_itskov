@@ -70,19 +70,19 @@ class Interval:
         x = []
         y = []
         count_elements = self.count_data
+        x_min = self.intervals[0].argement
+        x_max = self.intervals[len(self.intervals)-1].argement
+        # x_min = self.a
+        # x_min = self.b
+        h = (x_max - x_min) / len(self.intervals)
         for element in self.intervals:
             x.append(element.argement)
-            y.append(element.count / count_elements)
+            y.append(element.count / (count_elements * h))
 
-        # x_f = np.arange(0., 10., 0.2)
-        # y_f = [self.f(elem, self.a, self.b) for elem in x_f]
-        # plt.figure(figsize=(12, 6))
-        # plt.subplot(131)
+
         plt.title('Гистограмма относительных частот')
-        plt.bar(x, y, 0.1)
-        # plt.subplot(133)
-        # plt.plot(x_f, y_f, "go")
-        # plt.suptitle('Розыгрыш стандартных непрерывных случайных величин')
+        plt.bar(x, y, 0.05)
+
         plt.show()
 
     def print_f_graph(self):
